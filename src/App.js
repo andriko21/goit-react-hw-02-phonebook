@@ -1,23 +1,37 @@
+import React, { Component } from "react";
+// import PropTypes from "prop-types";
+import style from "../src/index.css";
 
-// function App() {
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //       <a
-  //         className="App-link"
-  //         href="https://reactjs.org"
-  //         target="_blank"
-  //         rel="noopener noreferrer"
-  //       >
-  //         Learn React
-  //       </a>
-  //     </header>
-  //   </div>
-  // );
-// }
+export default class App extends Component {
+  state = {
+    contacts: [],
+    name: "",
+  };
 
-// export default App;
+  render() {
+    return (
+      <div className={style.container}>
+        <h1>Phonebook</h1>
+        <div className={style.addContact__container}>
+          <h2>Name</h2>
+
+          <input
+            type="text"
+            name="name"
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+            required
+          />
+          <button type="button">add contact</button>
+        </div>
+
+        <div className={style.contacts__container}>
+          <h2>Contacts</h2>
+          <ul>
+            <li>Rosie Simpson</li>
+          </ul>
+        </div>
+      </div>
+    );
+  }
+}
