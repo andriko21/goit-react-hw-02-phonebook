@@ -44,7 +44,15 @@ li {
 .button {
   padding: 5px 15px;
   border-radius: 13px;
+  border: 2px solid rgb(247, 215, 171);
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   background-color: rgb(255, 247, 236);
+}
+
+.button:hover {
+  background-color: rgb(250, 226, 192);
+  transform: scale(1.07);
 }
 
 .list {
@@ -58,10 +66,16 @@ li {
   border-radius: 20px;
   background-color: rgb(164, 255, 255);
   margin-bottom: 10px;
+  transition-duration: 0.25s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .item:last-child {
   margin-bottom: 0;
+}
+
+.item:hover {
+  transform: scale(1.07);
 }
 
 .userName {
