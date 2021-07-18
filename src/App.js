@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import style from "./index.module.css";
+// import style from "./index.module.css";
 import Form from "./Form/Form.js";
-import ContactList from "./ContactLIst/ContactList.js"
+import ContactList from "./ContactLIst/ContactList.js";
+import Filter from "./Filter/Filter.js";
 
 export default class App extends Component {
   static defaultProps = {
@@ -15,9 +16,7 @@ export default class App extends Component {
 
   state = {
     contacts: [...this.props.contacts],
-    filter: '',
-    // name: "",
-    // number: "",
+    filter: "",
   };
 
   addContact = (data) => {
@@ -26,14 +25,27 @@ export default class App extends Component {
     });
   };
 
+  changeFilter = (ev) => {
+    this.setState({
+      filter: ev.currentTarget.value,
+    });
+  };
+
+  visibleItems = () => {
+    const { contacts } = this.state;
+
+    return contacts.filter(({ name }) =>
+      name.toLowerCase().includes(this.state.filter.toLowerCase())
+    );
+  };
   render() {
+    const { filter } = this.state;
+    const { changeFilter, addContact } = this;
     return (
       <>
-        <Form addContactItem={this.addContact} />
-        <h3>Find contacts by name</h3>
-        <input className={ style.input}/>
-        <ContactList itemsRender={this.state.contacts} />
-        
+        <Form addContactItem={addContact} />
+        <Filter value={filter} onChange={changeFilter} />
+        <ContactList itemsRender={this.visibleItems()} />
       </>
     );
   }
