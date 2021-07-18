@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-// import PropTypes from "prop-types";
-import style from "./App.module.css";
-import { v4 as uuidv4 } from "uuid";
+import style from "./index.module.css";
+import Form from "./Form/Form.js";
+import ContactList from "./ContactLIst/ContactList.js"
 
 export default class App extends Component {
   static defaultProps = {
@@ -15,28 +15,9 @@ export default class App extends Component {
 
   state = {
     contacts: [...this.props.contacts],
-    name: "",
-    number: "",
-  };
-
-  onCHangeInput = (ev) => {
-    const { name, value } = ev.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  onSubmit = (ev) => {
-    // const {name:}
-    ev.preventDefault();
-    // console.log(ev)
-    const contact = {
-      name: ev.currentTarget.name.value,
-      number: ev.currentTarget.number.value,
-      id: uuidv4(),
-    };
-    this.addContact(contact);
-    this.reset()
+    filter: '',
+    // name: "",
+    // number: "",
   };
 
   addContact = (data) => {
@@ -45,58 +26,15 @@ export default class App extends Component {
     });
   };
 
-  reset = () => {
-    this.setState({
-      name: "",
-      number: "",
-    });
-  };
   render() {
     return (
-      <div className={style.container}>
-        <h1>Phonebook</h1>
-        <div className={style.addContact__container}>
-          <h2>Name</h2>
-          <form className={style.form} onSubmit={this.onSubmit}>
-            <input
-              className={style.input}
-              type="text"
-              name="name"
-              value={this.state.name}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
-              onChange={this.onCHangeInput}
-            />
-            <h3>Number</h3>
-            <input
-              className={style.input}
-              type="tel"
-              name="number"
-              value={this.state.number}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-              required
-              onChange={this.onCHangeInput}
-            />
-            <button type="submit" className={style.button}>
-              add contact
-            </button>
-          </form>
-        </div>
-
-        <div className={style.contacts__container}>
-          <h2>Contacts</h2>
-          <ul className={style.list}>
-            {this.state.contacts.map(({ name, id, number }) => (
-              <li className={style.item}>
-                <p className={style.userName}>{name}</p>
-                <p>{number}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+      <>
+        <Form addContactItem={this.addContact} />
+        <h3>Find contacts by name</h3>
+        <input className={ style.input}/>
+        <ContactList itemsRender={this.state.contacts} />
+        
+      </>
     );
   }
 }
