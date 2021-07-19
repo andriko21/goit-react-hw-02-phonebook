@@ -17,6 +17,11 @@ export default class Form extends Component {
 
   onSubmit = (ev) => {
     ev.preventDefault();
+    // console.log(ev.currentTarget.name.value)
+    if (this.props.contacts.some(({name}) => name.toLowerCase() === ev.currentTarget.name.value.toLowerCase())) {
+      return alert(`${ev.currentTarget.name.value} is already registered`);
+    }
+
     const contact = {
       name: ev.currentTarget.name.value,
       number: ev.currentTarget.number.value,
@@ -31,9 +36,9 @@ export default class Form extends Component {
       name: "",
       number: "",
     });
-    };
-    
-    render() {
+  };
+
+  render() {
     return (
       <div className={style.container}>
         <h1>Phonebook</h1>
@@ -66,8 +71,6 @@ export default class Form extends Component {
             </button>
           </form>
         </div>
-
-       
       </div>
     );
   }
