@@ -15,6 +15,7 @@ export default class App extends Component {
       { id: uuidv4(), name: "Annie Copeland", number: "227-91-26" },
     ],
   };
+  
 
   state = {
     contacts: [...this.props.contacts],
